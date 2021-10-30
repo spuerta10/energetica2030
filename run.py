@@ -1,18 +1,33 @@
-import influx_database as influx
-import send_data
-import mongodb as mongo
-#import mqtt 
+import influxdata as idata
+import senddata as send
+import mongodata as mongo
+import mqtt 
 import threading
 import time
 
 
-def read_influx_sensors_and_send(influxdb_object:influx.Influxdb, mongodb_object:mongo.Mongodb): 
-    '''Este metodo se encarga de hacer todo lo de la ceiba. 
-        Obtener los datos de influxDB, esta funcion recorre una lista
-        de etiquetas recuperando los datos de cada una de estas etiquetas, luego guarda
-        estos datos en un BD local para despues enviarlos a un servidor remoto.'''
+def getData(raw:list)->tuple:
+    '''Funcion para obtener y retornar el ultimo dato con la fecha y hora respectivas 
+    almacenado en influxDB de todas las etiquetas'''
+
+    dic = raw['series'] 
+    if (len(dic)>0):
+        info = dic[0]
+        taken = info['values']
+        date_hour_value = taken[-1] #Obtengo lista con par fecha-hora y valor 
+        date = date_hour_value[0][:10] #substring de 0 a 10 para obtener la fecha
+        hour = date_hour_value[0][14:19] #substring para obtener la hora
+        value = date_hour_value[1] #valor en la posicion 1 de la lista
+        return date, hour, value #retorno tupla con fecha, hora y valor del ultimo dato de InfluxDB
+
+
+def ceiba(): 
+    '''Esta funcion se encraga de hacer todo lo de la ceiba. 
+    Funcion para obtener los datos de influxDB, esta funcion recorre una lista
+    de etiquetas recuperando los datos de cada una de estas etiquetas, luego guarda
+    estos datos en un BD local para despues enviarlos a un servidor remoto.'''
         
-    change_label_to_remote_accepted = { #diccionario que cambia el nombre convencional de la etiqueta por el nombre que admite el servidor remoto
+    labels = { #diccionario que cambia el nombre convencional de la etiqueta por el nombre que admite el servidor remoto
        "battery/Dc/0/Current" : "corriente_bat", 
        "battery/Dc/0/Voltage" : "voltaje_bat", 
        "system/Dc/Battery/Power":"potencia_bat",
@@ -25,7 +40,7 @@ def read_influx_sensors_and_send(influxdb_object:influx.Influxdb, mongodb_object
        "vebus/Ac/Out/P":"ac_output_inversor",
     }
 
-    label_values_to_be_send_and_saved = { #diccionario de etiquetas y valores a guardar y enviar
+    data = { #diccionario de etiquetas y valores a guardar y enviar
         'corriente_bat':None,
         'voltaje_bat':None,
         'potencia_bat': None,
@@ -38,29 +53,28 @@ def read_influx_sensors_and_send(influxdb_object:influx.Influxdb, mongodb_object
         'ac_output_inversor':None
     }
 
-    for label in change_label_to_remote_accepted.keys(): #recorro la lista de etiquetas
-        name_of_label_to_send = change_label_to_remote_accepted[label] #cambio el nombre de la etiqueta
-        date_hour_value = influxdb_object.get_last_label_data(label) #obtengo el ultimo dato almacenado con la fecha y hora respectivas de influxDB
-        label_values_to_be_send_and_saved[name_of_label_to_send] = date_hour_value[2] #escribo en el diccionario el valor de la etiqueta
-    #send_data.send_uni_sucre(label_values_to_be_send_and_saved) #envio los datos a UniSucre
-    mongodb_object.write_to_mongo(label_values_to_be_send_and_saved, date_hour_value) #escribo los datos de la CEIBA en la BD
+    for label in labels.keys(): #recorro la lista de etiquetas
+        raw = idata.query(label) #hago query para obtener datos de influxDB
+        label_ts = labels[label] #cambio el nombre de la etiqueta
+        date_hour_value = getData(raw) #obtengo el ultimo dato almacenado con la fecha y hora respectivas de influxDB
+        data[label_ts] = date_hour_value[2] #escribo en el diccionario el valor de la etiqueta
+    send.send(data) #envio los datos a UniSucre
+    mongo.writeMongo(data, date_hour_value,collection="victron") #escribo los datos de la CEIBA en la BD
 
 
-def ceiba_main(): 
-    '''metodo para ejecutar todos los procesos
+def ceiba_run(): 
+    '''Funcion para ejecutar todos los procesos
     involucrado en la toma de datos de la ceiba en un
     loop infinito cada x tiempo'''
-    influxdb_object = influx.Influxdb(port = 8086, db_name = "venus", host = "localhost")
-    mongodb_object = mongo.Mongodb(port = 27017, db_name = "livingLab", host = "localhost", collection_name="victron")
     while(True):
-        read_influx_sensors_and_send(influxdb_object,mongodb_object)
+        ceiba()
         time.sleep(60) #cada 60 segundos ejecutar
 
 
 if __name__ == '__main__':
     #uso multithreading para, en un hilo correr el bucle infinito de ceiba
     #y en otro hilo correr bucle infinito de sensores
-    t1 = threading.Thread(target=ceiba_main) #hilo1 con ceiba
-    #t2 = threading.Thread(target=mqtt.mqtt_run) #hilo2 con sensores
-    #t2.start() #ejecuto hilo2 primero para que haya data de sensores en mongo
+    t1 = threading.Thread(target=ceiba_run) #hilo1 con ceiba
+    t2 = threading.Thread(target=mqtt.mqtt_run) #hilo2 con sensores
+    t2.start() #ejecuto hilo2 primero para que haya data de sensores en mongo
     t1.start() #ejecuto hilo1 segundo para poder recolectar y enviar la data de sensores
