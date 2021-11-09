@@ -7,22 +7,22 @@ En este repositorio se encuentran los módulos con el código desarrollado e imp
 * Se recomienda en primera instancia, el instalar python y con este, el usar un entorno virtual para descargar las librerías usadas en el desarrollo, que serán mencionadas a continuación.
 	
 	| Nombre de la librería | Modulo donde se usa | Preinstalada en el sistema |Mayor información|
-	|------------------------- | ------------------------- 	| ----------------------------- | --------------------- |
-	| influxdb                      | influx_database				|<center>[]</center>        |https://pypi.org/project/influxdb/
-	| paho-mqtt                 | mqtt                             	|<center>[]</center>        | https://pypi.org/project/paho-mqtt/
-	| pymongo					 | mongodb							|<center>[]</center>        | https://pypi.org/project/pymongo/
-	| requests					 | send_data				 		|<center>[]</center>        | https://pypi.org/project/requests/
-	| time 							 | send_data                      	|<center>[x]</center>		 | https://pypi.org/project/python-time/
-	| threading					 | run								    |<center>[x]</center>      | https://pypi.org/project/threaded/
-	| datetime					 | mqtt									|<center>[x]</center>      | https://pypi.org/project/DateTime/
-	| sys								 | mqtt				      	  	 	 	|<center>[x]</center>      | https://docs.python.org/3/library/sys.html
-	| ssl 				  	  	 	 	 | mqtt 	  	 	 	 	  	 		|<center>[x]</center>      | https://pypi.org/project/ssl/
+	|-----------------------| --------------------|----------------------------|-----------------|
+	| influxdb              | influx_database     |<center>[]</center>         |https://pypi.org/project/influxdb/
+	| paho-mqtt             | mqtt                |<center>[]</center>         | https://pypi.org/project/paho-mqtt/
+	| pymongo		| mongodb	      |<center>[]</center>         | https://pypi.org/project/pymongo/
+	| requests		| send_data	      |<center>[]</center>         | https://pypi.org/project/requests/
+	| time 			| send_data           |<center>[x]</center>        | https://pypi.org/project/python-time/
+	| threading	        | run		      |<center>[x]</center>        | https://pypi.org/project/threaded/
+	| datetime		| mqtt		      |<center>[x]</center>        | https://pypi.org/project/DateTime/
+	| sys			| mqtt	              |<center>[x]</center>        | https://docs.python.org/3/library/sys.html
+	| ssl 		        | mqtt 	  	      |<center>[x]</center>        | https://pypi.org/project/ssl/
 
 * En segunda medida es necesaria **la instalación de Docker** en la RaspBerry véase [este enlace](https://blog.desdelinux.net/como-instalar-docker-en-raspberry-pi-con-raspbian/) para mayor referencia. Luego de instalado Docker, es necesario el **incorporar los contenedores de Victron Energy** *para la comunicación con el Color Control*, visite [este enlace](https://github.com/victronenergy/venus-docker-grafana) para la instalación. 
 * Finalmente es necesario el **instalar MongoDb** en la RaspBerry, *crear la base de datos y crear las respectivas colecciones*; en nuestro caso lo haremos haciendo uso de un contenedor de Docker. Para la instalación de MongoDb siga los pasos listados a continuación. 
 		<pre><code>pi@raspberry:~ $ sudo docker images
-		REPOSITORY 					   TAG		IMAGE ID		CREATED			SIZE
-		casualsimulation/rpi-mongodb3  latest   bce4db2845c7    2 years ago     366MB
+		REPOSITORY 			 TAG	     IMAGE ID	     CREATED	     SIZE
+		casualsimulation/rpi-mongodb3    latest      bce4db2845c7    2 years ago     366MB
 		pi@raspberry:~ $ sudo docker run -d -p 27017:27017 --name mongoDB casualsimulation/rpi-mongodb3 
 		pi@raspberry:~ $ sudo docker start mongoDB
 		pi@raspberry:~ $ sudo docker exec -it mongoDB bash
