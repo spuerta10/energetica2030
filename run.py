@@ -1,3 +1,7 @@
+'''modulo principal del programa y entry point del sistema, este modulo se encarga de orquestar y manejar los demas modulos del sistema
+para el correcto funcionamiento ejecuta todo lo de la CEIBA y a su vez todo lo de los sensores MQTT.'''
+
+
 import influx_database as influx
 import send_data
 import mongodb as mongo
@@ -9,8 +13,8 @@ import time
 def read_influx_sensors_and_send(influxdb_object:influx.Influxdb, mongodb_object:mongo.Mongodb): 
     '''Este metodo se encarga de hacer todo lo de la ceiba. 
         Obtener los datos de influxDB, esta funcion recorre una lista
-        de etiquetas recuperando los datos de cada una de estas etiquetas, luego guarda
-        estos datos en un BD local para despues enviarlos a un servidor remoto.'''
+        de etiquetas recuperando los datos de cada una de estas etiquetas, luego envia estos datos a un servidor remoto y
+        posteriormente de enviados los almacena en una base de datos.'''
         
     change_label_to_remote_accepted = { #diccionario que cambia el nombre convencional de la etiqueta por el nombre que admite el servidor remoto
        "battery/Dc/0/Current" : "corriente_bat", 
@@ -42,7 +46,7 @@ def read_influx_sensors_and_send(influxdb_object:influx.Influxdb, mongodb_object
         name_of_label_to_send = change_label_to_remote_accepted[label] #cambio el nombre de la etiqueta
         date_hour_value = influxdb_object.get_last_label_data(label) #obtengo el ultimo dato almacenado con la fecha y hora respectivas de influxDB
         label_values_to_be_send_and_saved[name_of_label_to_send] = date_hour_value[2] #escribo en el diccionario el valor de la etiqueta
-    #send_data.send_uni_sucre(label_values_to_be_send_and_saved) #envio los datos a UniSucre
+    send_data.send_to_available(label_values_to_be_send_and_saved) #envio los datos a la platofarma que este disponible 
     mongodb_object.write_to_mongo(label_values_to_be_send_and_saved, date_hour_value) #escribo los datos de la CEIBA en la BD
 
 
@@ -58,8 +62,8 @@ def ceiba_main():
 
 
 if __name__ == '__main__':
-    #uso multithreading para, en un hilo correr el bucle infinito de ceiba
-    #y en otro hilo correr bucle infinito de sensores
+    '''uso multithreading para, en un hilo correr el bucle infinito de ceiba
+    y en otro hilo correr bucle infinito de sensores'''
     t1 = threading.Thread(target=ceiba_main) #hilo1 con ceiba
     #t2 = threading.Thread(target=mqtt.mqtt_run) #hilo2 con sensores
     #t2.start() #ejecuto hilo2 primero para que haya data de sensores en mongo

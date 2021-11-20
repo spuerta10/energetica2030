@@ -1,4 +1,4 @@
-'''Modulo para el envio de los datos captados por CEIBA ya sea a la 
+'''modulo para el envio de los datos captados por la CEIBA ya sea a la 
 plataforma de UniSucre o a la plataforma de UbiDots.'''
 
 
@@ -16,7 +16,7 @@ def send_uni_sucre(to_be_send:dict):
     
     try:
         response_from_server = requests.post(url = http_direction, data = to_be_send) #hago el post de los datos a la direccion del servidor
-        print(f"Respuesta del servidor: {response_from_server.text[38:]}") #respuesta del servidor
+        print(f"Respuesta del servidor UniSucre: {response_from_server.text[38:]}") #respuesta del servidor
     except ValueError as error:
         print(error)
 
@@ -37,7 +37,15 @@ def send_ubi_dots(to_be_send:dict):
         if request_status >= 400: #si el status es de mas de 400 es ERORR
             print("[ERROR]")
             return False
-        print("Datos enviados correctamente")
+        print(f"Respuesta del servidor UbiDots: {request.text[38:41]}")
         return True
     except Exception as err:
         print(err)
+
+
+def send_to_available(to_be_send:dict):
+    try:
+        send_uni_sucre(to_be_send=to_be_send)
+    except ValueError as error:
+        #si no puede mandar a uniSucre lo mas probable es que el servidor no se encuentre disponible
+        send_ubi_dots(to_be_send=to_be_send)

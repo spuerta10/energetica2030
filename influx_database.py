@@ -2,13 +2,25 @@
 '''modulo para obtener los datos de las etiquetas almacenados en la base de datos influxdb'''
 
 
-#inicializar docker antes de correr este script!
 import db_access as db
 from influxdb import InfluxDBClient  #libreria para acceso a los datos de influxdb
 
 
 class Influxdb(db.Db_access):
-
+    
+    '''patron de diseño singleton'''
+    __instance = None #si no hay objetos creados = None
+                      #si hay objetos creados = objeto Influxdb creado
+    
+    def __new__(cls, port:int, db_name:str, host:str):
+        if Influxdb.__instance is None: #si no hay ninguna instacia creada
+            Influxdb.__instance = object.__new__(cls)
+        Influxdb.__instance.port = port
+        Influxdb.__instance.db_name = db_name
+        Influxdb.__instance.host = host
+        return Influxdb.__instance #retorna siempre la misma instancia
+    
+    
     def read_influxdb_data(self, label_to_search:str)->list:
         '''metodo para obtener todos los datos de una etiqueta almacenada en influxdb.'''
 
@@ -22,7 +34,7 @@ class Influxdb(db.Db_access):
 
 
     def get_last_label_data(self, label_to_search:str)->tuple:
-        '''Funcion para obtener y retornar el ultimo dato con la fecha y hora respectivas 
+        '''metodo para obtener y retornar el ultimo dato con la fecha y hora respectivas 
         almacenado en influxDB de todas las etiquetas'''
 
         all_label_data = self.read_influxdb_data(label_to_search)
