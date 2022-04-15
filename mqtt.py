@@ -1,6 +1,9 @@
 
 """Modulo para recibir datos de los sensores de temperatura y humedad mediante el protocolo de comunicacion
-	mqtt y guardar estos datos en una coleccion MongoDB"""
+	mqtt y guardar estos datos en una coleccion MongoDB
+	Para mejor documentacion sobre la libreria de eclipse - paho usada
+	visitar: https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php#constructor-reinitialise
+	"""
 
 import ssl
 import sys
