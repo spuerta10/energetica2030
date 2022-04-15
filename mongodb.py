@@ -12,7 +12,7 @@ import pymongo
 
 class Mongodb(db.Db_access):
     """Hereda de un DAO: Data Access Object; Representa un objeto para 
-       leer datos de una coleccion MongoDB
+       escribir datos en una coleccion MongoDB
        
        Attributes:
         port (int): [Puerto de la base de datos para lectura/escritura]
