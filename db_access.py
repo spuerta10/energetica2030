@@ -2,6 +2,9 @@
 """Módulo para crear un DAO: Data Access Object"""
 
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
+
 class Db_access:
     """Representa un DAO: Data Access Object;
        objeto para el acceso a una base de datos.
