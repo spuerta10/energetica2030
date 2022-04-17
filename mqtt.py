@@ -5,6 +5,9 @@
 	visitar: https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php#constructor-reinitialise
 	"""
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
+
 import ssl
 import sys
 import paho.mqtt.client
