@@ -2,6 +2,9 @@
 plataforma de UniSucre o a UbiDots.'''
 
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
+
 import requests
 import time
 
