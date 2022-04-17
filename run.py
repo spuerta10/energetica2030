@@ -2,6 +2,9 @@
 para el correcto funcionamiento ejecuta todo lo de la CEIBA y a su vez todo lo de los sensores MQTT.'''
 
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
+
 import influx_database as influx
 import send_data
 import mongodb as mongo
