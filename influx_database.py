@@ -1,6 +1,7 @@
 
 '''modulo para obtener los datos de las etiquetas almacenados en la base de datos influxdb'''
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
 
 import db_access as db
 from influxdb import InfluxDBClient  #libreria para acceso a los datos de influxdb
