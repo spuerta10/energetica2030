@@ -6,6 +6,9 @@
    -> sensors, es la coleccion que almacena los datos de los sensores de temperatura y humedad.'''
 
 
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
+
 import db_access as db
 import pymongo
 
