@@ -17,8 +17,8 @@ def send_uni_sucre(to_be_send:dict) -> None:
         de UniSucre]
     """
 
-    http_direction = "http://181.71.69.11:4000/interfaz/httpstation" #direccion servidor Unisucre
-    token = "615f007c1e563703586f2376" #token para la comunicacion
+    http_direction = "http://181.57.149.36:4000/interfaz/httpstation" #direccion servidor Unisucre
+    token = "621cdb72928dd822d476f8f2" #token para la comunicacion
     to_be_send['token'] = token #añado la etiqueta token de conexion al diccionario entrante
     
     try:
