@@ -27,7 +27,10 @@ Finalmente el desarrollo realizado concluye de manera satisfactoria dando como r
 ![](https://github.com/spuertaf/energetica2030/blob/main/recursos/graficasGrafana.png)
 *Figura 3.* Visualizacion de los datos captados por el panel en Grafana.
 
+<br></br>
+<br></br>
 
-
-
+<p align="center">
+<img src="https://github.com/spuertaf/energetica2030/blob/main/recursos/energeticaEAFIT.png">
+</p>
 
