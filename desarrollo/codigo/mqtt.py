@@ -1,6 +1,12 @@
 
-'''modulo para recibir datos de los sensores de temperatura y humedad mediante el protocolo de comunicacion
-	mqtt y el guardado de estos datos en mongodb'''
+"""Modulo para recibir datos de los sensores de temperatura y humedad mediante el protocolo de comunicacion
+	mqtt y guardar estos datos en una coleccion MongoDB
+	Para mejor documentacion sobre la libreria de eclipse - paho usada
+	visitar: https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php#constructor-reinitialise
+	"""
+
+__author__ = "Juan Pablo Giraldo Perez, Santiago Puerta Florez"
+
 
 import ssl
 import sys
@@ -9,14 +15,29 @@ import mongodb
 from datetime import datetime
 
 
-def receive_mqtt_messages(client, userdata, flags, rc):
-	'''metodo para poder recibir los mensajes de un topic especifico mediante mqtt'''
+def receive_mqtt_messages(client, userdata, flags, rc) -> None:
+	'''Recibe los mensajes de un determinado topic mediante mqtt
+	
+	Args:
+		client: [Instancia del cliente que hace el llamado]
+		userdata: [Datos de cualquier tipo definidos por el usuario]
+		flags: [Banderas de respuesta enviadas por el broker]
+		rc: [El resultado de la conexion]
+	'''
 	print('connected (%s)' % client._client_id)
 	client.subscribe(topic='#', qos=2)
 
 
-def write_mongo_message_data(client, userdata, message):
-	'''metodo para escribir los mensajes recibidos en la base de datos'''
+def write_mongo_message_data(client, userdata, message) -> None:
+	'''Escribe los mensajes recibidos en la coleccion MongoDB
+	
+	Args:
+		client: [Instancia del cliente que hace el llamado]
+		userdata: [Datos de cualquier tipo definidos por el usuario]
+		message: [Instancia de mensaje MQTT que contiene: topic, payload
+		qos, retain]
+	
+	'''
 	to_be_written_mongo = {} #datos a ser escritos en mongo
 	print('------------------------------')
 	print('topic: %s' % message.topic)
@@ -30,7 +51,7 @@ def write_mongo_message_data(client, userdata, message):
 
 
 def start_mqtt_communication():
-	'''metodo para iniciar la comunicacion y recepcion de mensajes'''
+	'''Inicia la comunicacion y recepcion de mensajes'''
 	mqtt_client = paho.mqtt.client.Client(client_id='puerta-pc', clean_session=False)
 	mqtt_client.on_connect = receive_mqtt_messages
 	mqtt_client.on_message = write_mongo_message_data
