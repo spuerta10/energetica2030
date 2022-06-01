@@ -14,7 +14,7 @@ Inicialmente se tendran cinco (5) laboratorios piloto, cada uno de ellos se enco
 *Figura 1.* Datos captados por el panel mostrados por la terminal. 
 
 ## La solucion
-Teniendo el problema en mente se penso en una solucion: un desarrollo que permitiera la visualizacion de los datos captados por el panel en graficas.  
+Teniendo el problema en mente se penso en una solucion: un desarrollo que se conectara con el panel, recolectara la informacion captada y permitiera la visualizacion de los datos captados por el panel en graficas.  
 El panel solar de la Universidad EAFIT fue usado como entorno de pruebas.
 
 ![](https://github.com/spuertaf/energetica2030/blob/main/recursos/panelSolarEAFIT.png)
