@@ -28,9 +28,12 @@ Finalmente el desarrollo realizado concluye de manera satisfactoria dando como r
 *Figura 3.* Visualizacion de los datos captados por el panel en Grafana.
 
 <br></br>
+
+El codigo de la aplicacion para obtener los datos captados por el panel y enviarlo al entorno de visualizacion Grafana se encuentra en: [desarrollo](https://github.com/spuertaf/energetica2030/tree/main/desarrollo)
+
+<br></br>
 <br></br>
 
 <p align="center">
 <img src="https://github.com/spuertaf/energetica2030/blob/main/recursos/energeticaEAFIT.png">
 </p>
-
