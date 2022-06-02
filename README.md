@@ -1,35 +1,45 @@
-# Contextualizacion
-Este proyecto hace parte de la iniciativa [energetica 2030](https://www.energetica2030.co/), concretamente del [p8 - Microrredes](https://www.energetica2030.co/p8-microrredes/), conformada por 8 universidad y 3 empresas la cual busca definir estrategias de transformacion del sector energético colombiano para el 2030. 
+<p align = "center">
+<font size ="4.7px"><a href = "https://github.com/spuertaf/energetica2030/blob/main/README.md">English</a>
+                                                                              |
+<a href = "https://github.com/spuertaf/energetica2030/blob/main/README.md">Español</a></font> 
+</p>
 
-Este proyecto en cuestion pretende atacar un problema de visualizacion de los datos captados por un panel solar.
+# The context
+This proyect belongs to [Energetica 2030]() iniciative, concretely to [p8 - Microrredes](), conformed by 8 universities and 3 companies.
+Energetica's goal is to define tranformation strategies for the electric sector in colombia for 2030.  
+
+This proyect pretends to solve a problem relating data visualization.  
 <br></br>
 
-## El problema
-Inicialmente se tendran cinco (5) laboratorios piloto, cada uno de ellos se encontrara equipado con un panel solar.  
-**El problema** se presenta a la hora de visualizar los datos capatados por el panel solar, ya que la unica manera de acceder a estos datos es a traves de la terminal, ademas, los mismos no son presentados de una forma legible.
+## The problem
+Initially there will be placed five (5) living labs, each one of them is going to ve equipped with a solar panel.  
+**The problem** begins when to want to obtain the data collected by the solar panel since the only way to access to these data is by the terminal
+also the data is not presented in a legible way as shown below in *figure 1*.
 <br></br>
 
 ![](https://github.com/spuertaf/energetica2030/blob/main/recursos/datosPanelTerminal.png)
 
-*Figura 1.* Datos captados por el panel mostrados por la terminal. 
+*Figure 1*. Data collected by the solar panel shown from the terminal.
 
-## La solucion
-Teniendo el problema en mente se penso en una solucion: un desarrollo que se conectara con el panel, recolectara la informacion captada y permitiera la visualizacion de los datos captados por el panel en graficas.  
-El panel solar de la Universidad EAFIT fue usado como entorno de pruebas.
+## The solution
+Having the problem in mind a solution was thought: a software development that could connect with the solar panel, collect the panel's information and
+allow it's visualization in graphs.
+EAFIT's University solar panel was used as a testing unit. 
 
-![](https://github.com/spuertaf/energetica2030/blob/main/recursos/panelSolarEAFIT.png)
+![](https://github.com/spuertaf/energetica2030/blob/main/recursos/panelSolarEAFIT.png)   
 
-*Figura 2.* Panel solar de la Universidad EAFIT.
+*Figure 2*. EAFIT's solar panel.
 
-## Los resultados
-Finalmente el desarrollo realizado concluye de manera satisfactoria dando como resultado una mejor visualizacion de los datos captados por el panel solar.
+## The results
+Lastly the development implemented concludes agreeably by allowing the users to visualize the panel data efficiently.
 
 ![](https://github.com/spuertaf/energetica2030/blob/main/recursos/graficasGrafana.png)
-*Figura 3.* Visualizacion de los datos captados por el panel en Grafana.
+
+*Figure 3*. Data visualization in graphs provided by the platform Grafana
 
 <br></br>
 
-El codigo de la aplicacion para obtener los datos captados por el panel y enviarlo al entorno de visualizacion Grafana se encuentra en: [desarrollo](https://github.com/spuertaf/energetica2030/tree/main/desarrollo)
+The code written for this project can be found in: [desarrollo](https://github.com/spuertaf/energetica2030/tree/main/desarrollo)
 
 <br></br>
 <br></br>
