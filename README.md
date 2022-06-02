@@ -1,7 +1,7 @@
 <p align = "center">
 <font size ="4.7px"><a href = "https://github.com/spuertaf/energetica2030/blob/main/README.md">English</a>
                                                                               |
-<a href = "https://github.com/spuertaf/energetica2030/blob/main/README.md">Español</a></font> 
+<a href = "https://github.com/spuertaf/energetica2030/blob/main/traducciones/espaniol.md">Español</a></font> 
 </p>
 
 # The context
