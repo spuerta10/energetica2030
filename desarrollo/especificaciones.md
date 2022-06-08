@@ -1,9 +1,13 @@
-# Energética 2030
-En este repositorio se encuentran los módulos con el código desarrollado e implementado para el correcto funcionamiento del Living Lab.
+# Especificaciones de uso
+En este repositorio, se encuentran los módulos con el código desarrollado e implementado para el correcto funcionamiento del software de visualizacion de datos 
+para los paneles solares de los Living Lab.
+<br></br>
 
-## A tener en cuenta para el correcto funcionamiento del código
-### Los siguientes son requisitos a tener en cuenta para el correcto funcionamiento del código contenido en este repositorio.
-! *Tener presente que el código aquí expuesto esta pensado para **ser utilizado en una RaspBerryPi**, para que así, esta se puede conectar con el Color Control del Living Lab.*
+## De Importancia
+Tener presente que el código aquí expuesto esta pensado para **ser utilizado en una RaspBerryPi**, para que así, esta se puede conectar con el Color Control del Living Lab.
+<br></br>
+
+## Ejecutando por primera vez
 * Se recomienda en primera instancia, el instalar python y con este, el usar un entorno virtual para descargar las librerías usadas en el desarrollo, que serán mencionadas a continuación.
 	
 	| Nombre de la librería | Modulo donde se usa | Preinstalada en el sistema |Mayor información|
